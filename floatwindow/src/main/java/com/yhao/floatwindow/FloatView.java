@@ -22,6 +22,10 @@ abstract class FloatView {
     void updateXY(int x, int y) {
     }
 
+    void updateWH(int width,int height){
+
+    }
+
     void updateX(int x) {
     }
 

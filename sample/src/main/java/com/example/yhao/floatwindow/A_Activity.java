@@ -24,6 +24,7 @@ public class A_Activity extends AppCompatActivity {
     }
 
     public void change(View view) {
-        startActivity(new Intent(this, B_Activity.class));
+//        startActivity(new Intent(this, B_Activity.class));
+        FloatWindow.get().updateWH(100,100);
     }
 }

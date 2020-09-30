@@ -68,6 +68,10 @@ public class FloatWindow {
         int mMoveType = MoveType.slide;
         int mSlideLeftMargin;
         int mSlideRightMargin;
+        boolean mTopBorderEnable;
+        boolean mBottomBorderEnable;
+        int mSlideTopBorder;
+        int mSlideBottomBorder;
         long mDuration = 300;
         TimeInterpolator mInterpolator;
         private String mTag = mDefaultTag;
@@ -175,9 +179,33 @@ public class FloatWindow {
             return this;
         }
 
+
         public B setMoveStyle(long duration, @Nullable TimeInterpolator interpolator) {
             mDuration = duration;
             mInterpolator = interpolator;
+            return this;
+        }
+
+
+        /**
+         * 设置上下不能滑出屏幕边缘
+         *
+         * @param slideTopBorder     上边界，默认为 0
+         * @param slideBottomBorder 下边界，默认为 0
+         */
+        private B setTopAndBottomBorder(int slideTopBorder, int slideBottomBorder) {
+            mSlideTopBorder = slideTopBorder;
+            mSlideBottomBorder = slideBottomBorder;
+            return this;
+        }
+
+        public B setEnableTopBorder(boolean enable) {
+            mTopBorderEnable = enable;
+            return this;
+        }
+
+        public B setEnableBottomBorder(boolean enable) {
+            mBottomBorderEnable = enable;
             return this;
         }
 

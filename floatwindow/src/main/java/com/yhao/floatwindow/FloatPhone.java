@@ -144,6 +144,14 @@ class FloatPhone extends FloatView {
     }
 
     @Override
+    void updateWH(int width, int height) {
+        if (isRemove) return;
+        mLayoutParams.width = width;
+        mLayoutParams.height = height;
+        mWindowManager.updateViewLayout(mView, mLayoutParams);
+    }
+
+    @Override
     int getX() {
         return mX;
     }

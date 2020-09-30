@@ -173,6 +173,11 @@ public class IFloatWindowImpl extends IFloatWindow {
         return mB.mView;
     }
 
+    @Override
+    public void updateWH(int width, int height) {
+        mFloatView.updateWH(width, height);
+    }
+
 
     private void checkMoveType() {
         if (mB.mMoveType == MoveType.fixed) {
@@ -207,10 +212,20 @@ public class IFloatWindowImpl extends IFloatWindow {
                                 changeY = event.getRawY() - lastY;
                                 newX = (int) (mFloatView.getX() + changeX);
                                 newY = (int) (mFloatView.getY() + changeY);
-                                mFloatView.updateXY(newX, newY);
-                                if (mB.mViewStateListener != null) {
-                                    mB.mViewStateListener.onPositionUpdate(newX, newY);
+                                if (mB.mTopBorderEnable && mB.mBottomBorderEnable) {
+                                    if (newY < 0 || newY + v.getHeight() > Util.getScreenHeight(mB.mApplicationContext)) {
+                                        newY = mFloatView.getY();
+                                    }
+                                } else if (mB.mTopBorderEnable) {
+                                    if (newY < 0) {
+                                        newY = mFloatView.getY();
+                                    }
+                                } else if (mB.mBottomBorderEnable) {
+                                    if (newY + v.getHeight() > Util.getScreenHeight(mB.mApplicationContext)) {
+                                        newY = mFloatView.getY();
+                                    }
                                 }
+                                moveViewXY(newX, newY);
                                 lastX = event.getRawX();
                                 lastY = event.getRawY();
                                 break;
@@ -267,6 +282,13 @@ public class IFloatWindowImpl extends IFloatWindow {
         }
     }
 
+
+    private void moveViewXY(final int nowX, final int nowY) {
+        mFloatView.updateXY(nowX, nowY);
+        if (mB.mViewStateListener != null) {
+            mB.mViewStateListener.onPositionUpdate(nowX, nowY);
+        }
+    }
 
     private void startAnimator() {
         if (mB.mInterpolator == null) {

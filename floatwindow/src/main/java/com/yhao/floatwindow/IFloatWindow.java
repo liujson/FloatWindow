@@ -28,5 +28,7 @@ public abstract class IFloatWindow {
 
     public abstract View getView();
 
+    public abstract void updateWH(int width,int height);
+
     abstract void dismiss();
 }
