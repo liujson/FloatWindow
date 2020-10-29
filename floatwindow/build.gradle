@@ -21,6 +21,14 @@ android {
         }
     }
 
+    //生成aar名称及版本修改
+    libraryVariants.all { variant ->
+        variant.outputs.all {
+            def fileName = "fork_1.0.9_floatwindow_0.9.0.aar"
+            outputFileName = fileName
+
+        }
+    }
 }
 
 dependencies {
